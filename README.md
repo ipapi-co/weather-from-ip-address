@@ -2,8 +2,8 @@
 ### Recipe to get weather forecast from an IP address
 
 ### Ingredients 
-- IP address to location API : ipapi.co (free, no key required)
-- Weather API : openweathermap.org (free but requires key, signup to get one)
+- IP address to location API : [ipapi.co](https://ipapi.co) (free, no key required)
+- Weather API : [openweathermap.org](openweathermap.org) (free but requires key, signup to get one)
 
 ### Ruby
 ```ruby
