@@ -3,7 +3,7 @@
 
 ### Ingredients 
 - IP address to location API : [ipapi.co](https://ipapi.co) (free, no key required)
-- Weather API : [openweathermap.org](openweathermap.org) (free but requires key, signup to get one)
+- Weather API : [openweathermap.org](https://openweathermap.org) (free but requires key, signup to get one)
 
 ### Ruby
 ```ruby
