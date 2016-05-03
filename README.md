@@ -28,3 +28,17 @@ latlong = get('https://ipapi.co/{}/latlong/'.format(ip)).text.split(',')
 weather = get('http://api.openweathermap.org/data/2.5/weather?lat={}&lon={}&appid=API_KEY'.format(latlong[0], latlong[1])).json()
 ```
 
+### PHP
+```php
+$ip = '208.67.222.222';
+
+$latlong = explode(",", file_get_contents('https://ipapi.co/' . $ip . '/latlong/'));
+
+$weather = file_get_contents('http://api.openweathermap.org/data/2.5/weather?lat=' . $latlong[0] . '&lon=' . $latlong[1] . '&appid=API_KEY');
+
+echo $weather;
+
+$json = json_decode($weather);
+```
+
+
