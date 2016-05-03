@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Weather forecast from IP address by ipapi-co</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Weather forecast from IP address</h1>
+        <p></p>
+
+        <p class="view"><a href="https://github.com/ipapi-co/weather-from-ip-address">View the Project on GitHub <small>ipapi-co/weather-from-ip-address</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/ipapi-co/weather-from-ip-address/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/ipapi-co/weather-from-ip-address/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/ipapi-co/weather-from-ip-address">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h3>
+<a id="recipe-to-get-weather-forecast-from-an-ip-address" class="anchor" href="#recipe-to-get-weather-forecast-from-an-ip-address" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Recipe to get weather forecast from an IP address</h3>
+
+<h3>
+<a id="ingredients" class="anchor" href="#ingredients" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Ingredients</h3>
+
+<ul>
+<li>IP address to location API : <a href="https://ipapi.co">ipapi.co</a> (free, no key required)</li>
+<li>Weather API : <a href="https://openweathermap.org">openweathermap.org</a> (free but requires key, signup to get one)</li>
+</ul>
+
+<h3>
+<a id="ruby" class="anchor" href="#ruby" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Ruby</h3>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">'</span>net/http<span class="pl-pds">'</span></span>
+<span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">'</span>json<span class="pl-pds">'</span></span>
+
+<span class="pl-smi">$ip</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>208.67.222.222<span class="pl-pds">'</span></span>
+
+<span class="pl-smi">$latlong</span> <span class="pl-k">=</span> <span class="pl-c1">Net</span>::<span class="pl-c1">HTTP</span>.get(<span class="pl-c1">URI</span>(<span class="pl-s"><span class="pl-pds">'</span>https://ipapi.co/<span class="pl-pds">'</span></span> <span class="pl-k">+</span> <span class="pl-smi">$ip</span> <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">'</span>/latlong/<span class="pl-pds">'</span></span>)).split(<span class="pl-s"><span class="pl-pds">"</span>,<span class="pl-pds">"</span></span>)
+
+<span class="pl-smi">$weather</span> <span class="pl-k">=</span> <span class="pl-c1">JSON</span>.parse(<span class="pl-c1">Net</span>::<span class="pl-c1">HTTP</span>.get(<span class="pl-c1">URI</span>(<span class="pl-s"><span class="pl-pds">'</span>http://api.openweathermap.org/data/2.5/weather?lat=<span class="pl-pds">'</span></span><span class="pl-k">+</span><span class="pl-smi">$latlong</span>[<span class="pl-c1">0</span>]<span class="pl-k">+</span><span class="pl-s"><span class="pl-pds">'</span>&amp;lon=<span class="pl-pds">'</span></span><span class="pl-k">+</span><span class="pl-smi">$latlong</span>[<span class="pl-c1">1</span>]<span class="pl-k">+</span><span class="pl-s"><span class="pl-pds">'</span>&amp;appid=<span class="pl-pds">'</span></span><span class="pl-k">+</span><span class="pl-smi">$API_KEY</span>)))</pre></div>
+
+<h3>
+<a id="python" class="anchor" href="#python" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Python</h3>
+
+<div class="highlight highlight-source-python"><pre><span class="pl-k">from</span> requests <span class="pl-k">import</span> get
+
+ip <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>208.67.222.222<span class="pl-pds">'</span></span>
+
+latlong <span class="pl-k">=</span> get(<span class="pl-s"><span class="pl-pds">'</span>https://ipapi.co/<span class="pl-c1">{}</span>/latlong/<span class="pl-pds">'</span></span>.format(ip)).text.split(<span class="pl-s"><span class="pl-pds">'</span>,<span class="pl-pds">'</span></span>)
+
+weather <span class="pl-k">=</span> get(<span class="pl-s"><span class="pl-pds">'</span>http://api.openweathermap.org/data/2.5/weather?lat=<span class="pl-c1">{}</span>&amp;lon=<span class="pl-c1">{}</span>&amp;appid=API_KEY<span class="pl-pds">'</span></span>.format(latlong[<span class="pl-c1">0</span>], latlong[<span class="pl-c1">1</span>])).json()</pre></div>
+
+<h3>
+<a id="php" class="anchor" href="#php" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>PHP</h3>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$ip</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>208.67.222.222<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-smi">$latlong</span> <span class="pl-k">=</span> <span class="pl-c1">explode</span>(<span class="pl-s"><span class="pl-pds">"</span>,<span class="pl-pds">"</span></span>, <span class="pl-c1">file_get_contents</span>(<span class="pl-s"><span class="pl-pds">'</span>https://ipapi.co/<span class="pl-pds">'</span></span> <span class="pl-k">.</span> <span class="pl-smi">$ip</span> <span class="pl-k">.</span> <span class="pl-sr"><span class="pl-pds">'/</span>latlong<span class="pl-pds">/'</span></span>));</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-smi">$weather</span> <span class="pl-k">=</span> <span class="pl-c1">file_get_contents</span>(<span class="pl-s"><span class="pl-pds">'</span>http://api.openweathermap.org/data/2.5/weather?lat=<span class="pl-pds">'</span></span> <span class="pl-k">.</span> <span class="pl-smi">$latlong</span>[<span class="pl-c1">0</span>] <span class="pl-k">.</span> <span class="pl-s"><span class="pl-pds">'</span>&amp;lon=<span class="pl-pds">'</span></span> <span class="pl-k">.</span> <span class="pl-smi">$latlong</span>[<span class="pl-c1">1</span>] <span class="pl-k">.</span> <span class="pl-s"><span class="pl-pds">'</span>&amp;appid=API_KEY<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c1">echo</span> <span class="pl-smi">$weather</span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-smi">$json</span> <span class="pl-k">=</span> <span class="pl-c1">json_decode</span>(<span class="pl-smi">$weather</span>);</span></pre></div>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/ipapi-co">ipapi-co</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
